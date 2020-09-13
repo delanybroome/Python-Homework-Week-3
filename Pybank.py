@@ -1,7 +1,7 @@
 import os
 import csv
 
-csv = os.path.join("budget_data.csv")
+csv = os.path.join("C:/Users/delanybroome/Documents/GitHub/Python-Homework-Week-3", "budget_data.csv")
 
 #Define Variables 
 monthcount = 0

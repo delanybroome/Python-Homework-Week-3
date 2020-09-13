@@ -1,7 +1,7 @@
 import os 
 import csv
 
-csv = os.path.join("election_data.csv")
+csv = os.path.join("C:/Users/delanybroome/Documents/GitHub/Python-Homework-Week-3","election_data.csv")
 
 #Define Variables
 totalvotecount = 0
@@ -37,18 +37,18 @@ with open(csv) as csv_file:
         OTooley_Vote_Count = OTooley_Vote_Count + 1
 
 #print 
-print ("Election Results")
-print ("---------------------------")
-print (f"Total Votes: {totalvotecount}")
-print ("---------------------------")
-print(f"Kahn: {Kahn_Percentage}% {Kahn_Vote_Count}")
-print(f"Correy: {Correy_Percentage}% {Correy_Vote_Count}")
-print(f"Li: {Li_Percentage}% {Li_Vote_Count}")
-print (f"O'Tooley: {OTooley_Percentage}% {OTooley_Vote_Count}")
-print ("---------------------------")
-print (f"Winner: {winner}")
-print ("---------------------------")
+#print ("Election Results")
+#print ("---------------------------")
+#print (f"Total Votes: {totalvotecount}")
+#print ("---------------------------")
+#print(f"Kahn: {Kahn_Percentage}% {Kahn_Vote_Count}")
+#print(f"Correy: {Correy_Percentage}% {Correy_Vote_Count}")
+#print(f"Li: {Li_Percentage}% {Li_Vote_Count}")
+#print (f"O'Tooley: {OTooley_Percentage}% {OTooley_Vote_Count}")
+#print ("---------------------------")
+#print (f"Winner: {winner}")
+#print ("---------------------------")
 
-    #print list 
-    print(output)
+#print list 
+#print(output)
 
