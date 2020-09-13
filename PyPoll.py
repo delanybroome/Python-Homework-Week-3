@@ -1,7 +1,7 @@
 import os 
 import csv
 
-csv = election_data.csv
+csv = "election_data.csv"
 
 #Define Variables
 totalvotecount = 0
