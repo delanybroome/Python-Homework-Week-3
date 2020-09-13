@@ -1,7 +1,7 @@
 import os 
 import csv
 
-csv = "election_data.csv"
+csv = os.path.join("election_data.csv")
 
 #Define Variables
 totalvotecount = 0
@@ -13,10 +13,9 @@ OTooley_Vote_Count = 0
 
 #ImportData
 
-with open(election_data) as csv_file:
+with open(csv) as csv_file:
     csv_reader = csv.reader(csv_file)
     csv_header = next(csv_reader)
-    csv_dictionary = csv.DictReader(csv_file)
 
 #Create List of Canidates
     for row in csv_reader:
@@ -36,6 +35,20 @@ with open(election_data) as csv_file:
     
     elif row[2] == canidate_list[3]:
         OTooley_Vote_Count = OTooley_Vote_Count + 1
-    
+
+#print 
+print ("Election Results")
+print ("---------------------------")
+print (f"Total Votes: {totalvotecount}")
+print ("---------------------------")
+print(f"Kahn: {Kahn_Percentage}% {Kahn_Vote_Count}")
+print(f"Correy: {Correy_Percentage}% {Correy_Vote_Count}")
+print(f"Li: {Li_Percentage}% {Li_Vote_Count}")
+print (f"O'Tooley: {OTooley_Percentage}% {OTooley_Vote_Count}")
+print ("---------------------------")
+print (f"Winner: {winner}")
+print ("---------------------------")
+
     #print list 
+    print(output)
 

@@ -1,7 +1,7 @@
 import os
 import csv
 
-csv = "budget_data.csv"
+csv = os.path.join("budget_data.csv")
 
 #Define Variables 
 monthcount = 0
@@ -12,10 +12,9 @@ greatest_decrease = 0
 cumulative_increase_decrease = 0
 
 #Import data
-with open(budget_csv) as csv_file:
+with open(csv) as csv_file:
     csv_reader = csv.reader(csv_file)
     csv_header = next(csv_reader)
-    csv_dictionary = csv.DictReader(csv_file)
 
 #Iterate through rows, count, total and store increases/decreases
 for row in csv_reader:
