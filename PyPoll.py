@@ -1,7 +1,7 @@
 import os 
 import csv
 
-csv = os.path.join("Documents", "GitHub" "Python-Homework-Week-3","election_data.csv")
+csv = os.path.join("Documents", "GitHub", "Python-Homework-Week-3","election_data.csv")
 
 #Define Variables
 totalvotecount = 0
