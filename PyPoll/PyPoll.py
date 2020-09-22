@@ -1,68 +1,56 @@
-# import modules
-import os 
+# Import the os module to create file paths across operating systems
+# Import the csv module for reading csv files 
+import os
 import csv
 
-csv = os.path.join("Documents", "GitHub" "Python-Homework-Week-3", "PyPoll","election_data.csv")
+# Set path for file
+csvpath = os.path.join("Documents", "GitHub", "Python-Homework-Week-3","elections_data.csv")
 
-#Define Variables to hold data
-totalvotecount = 0
-canidate_list = []
-Kahn_Vote_Count = 0 
-Correy_Vote_Count = 0 
-Li_Vote_Count = 0
-OTooley_Vote_Count = 0
+# Open the CSV, set variable that holds content and specify delimiter
+with open(csvpath, newline="") as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=",")
 
-#ImportData
+    # Read the headers first
+    csv_reader = next(csvreader)
 
-with open(csv) as csv_file:
-    csv_reader = csv.reader(csv_file)
-    csv_header = next(csv_reader)
+    # Initiate variable for elections results
+    total_votes = 0
+    poll = {}
+    winner_votes = 0
+    winner = ""
 
-#Create List of Canidates
-    for row in csv_reader:
-        totalvotecount = totalvotecount +1 
+    # Set for loop to get total votes and votes per candidate
+    for row in csvreader:
 
-    if row[2] not in canidate_list:
-        canidate_list.append(row[2])
+        total_votes +=1
 
-    if row[2] == canidate_list[0]:
-        Kahn_Vote_Count = Kahn_Vote_Count + 1
+        candidate_name = row[2]
 
-    elif row[2] == canidate_list[1]:
-        Correy_Vote_Count = Correy_Vote_Count + 1
+        if candidate_name in poll.keys():
+            poll[candidate_name] = poll[candidate_name] + 1
+        else:
+            poll[candidate_name] = 1
+
+    # Print total votes in the election
+    log("Election Results")
+    log("---------------------------")
+    log(f"Total Votes: {total_votes}")
+    log("---------------------------")
     
-    elif row[2] == canidate_list[2]:
-        Li_Vote_Count = Li_Vote_Count + 1
-    
-    elif row[2] == canidate_list[3]:
-        OTooley_Vote_Count = OTooley_Vote_Count + 1
+    # Set for loop to get votes and percentage for each candidate.
+    # Also, get the winner of the election.
+    for candidate in poll:
 
-#calculate percentage of votes recieved
-Kahn_Percentage = ("%.2f" % (Kahn_Vote_Count/totalvotecount*100))
-Li_Percentage = ("%.2f" % (Li_Vote_Count/totalvotecount*100))
-Correy_Percentage = ("%.2f" % (Correy_Vote_Count/totalvotecount*100))
-OTooley_Percentage = ("%.2f" % (OTooley_Vote_Count/totalvotecount*100))
+        votes_per_candidate = poll.get(candidate)
+        candidate_percentage = (votes_per_candidate / total_votes) * 100
 
-#winner 
-if max(Kahn_Vote_Count, Correy_Vote_Count, Li_Vote_Count, OTooley_Vote_Count) == Kahn_Vote_Count:
-    winner = 'Kahn'
-elif max(Kahn_Vote_Count, Correy_Vote_Count, Li_Vote_Count, OTooley_Vote_Count) == Correy_Vote_Count:
-    winner = 'Correy'
-elif max(Kahn_Vote_Count, Correy_Vote_Count, Li_Vote_Count, OTooley_Vote_Count) == Li_Vote_Count:
-    winner = "Li"
-else: 
-    winner = "O'Tooley"
+        log(f"{candidate}: {candidate_percentage:.3f}% ({votes_per_candidate})")
+        #print(candidates_list)
 
-#Print final answers to terminal
-print ("Election Results")
-print ("---------------------------")
-print (f"Total Votes: {totalvotecount}")
-print ("---------------------------")
-print(f"Kahn: {Kahn_Percentage}% {Kahn_Vote_Count}")
-print(f"Correy: {Correy_Percentage}% {Correy_Vote_Count}")
-print(f"Li: {Li_Percentage}% {Li_Vote_Count}")
-print (f"O'Tooley: {OTooley_Percentage}% {OTooley_Vote_Count}")
-print ("---------------------------")
-print (f"Winner: {winner}")
-print ("---------------------------")
+        if votes_per_candidate > winner_votes:
+            winner_votes = votes_per_candidate
+            winner = candidate
 
+    log("---------------------------")
+    log(f"Winner: {winner}")
+    log("---------------------------")

@@ -1,53 +1,44 @@
 import os
 import csv
 
-csv = os.path.join("Documents", "GitHub", "Python-Homework-Week-3","budget_data.csv")
+csvpath = os.path.join("Documents", "GitHub", "Python-Homework-Week-3","budget_data.csv")
 
-#Define Variables 
-monthcount = 0
-total_profit_loss = 0
-previous_month = 0
-greatest_increase = 0
-greatest_decrease = 0
-cumulative_increase_decrease = 0
+# Open the CSV, set variable that holds content and specify delimiter
+with open(csvpath, newline="") as csvfile:
+    csvreader = csv.reader(csvfile, delimiter=",")
 
-#Import data
-with open(csv) as csv_file:
-    csv_reader = csv.reader(csv_file)
-    csv_header = next(csv_reader)
+    # Read the headers first
+    csv_reader = next(csvreader)
 
-#Loop through rows, count, total and store increases/decreases
-for row in csv_reader:
-    monthcount = monthcount + 1
-    total_profit_loss = total_profit_loss + int(row[1])
-    current_month = int(row[1]) 
-    increase_decrease = current_month - previous_month
+    # Initiate variables for financial analysis
+    dates = []
+    profit_loss = []
+    change_profit_loss = []
 
-#skip first row, averages issue 
-if previous_month != 0:
-    cumulative_increase_decrease =  cumulative_increase_decrease + increase_decrease
+    # Set for loop for total amount of months and net total amount of "Profits/Losses".
+    for row in csvreader:
+        dates.append(row[0])
+        profit_loss.append(float(row[1]))
 
-#increase and storing values
-if increase_decrease > greatest_increase:
-    greatest_increase = increase_decrease
-    greatest_increase_month = row[0]
-        
-#decrease, if true, storing values
-if increase_decrease < greatest_decrease:
-    greatest_decrease = increase_decrease
-    greatest_decrease_month = row[0]
+    # Print statements
+    log("Financial Analysis")
+    log("---------------------------")
+    log("Total Months: " + str(len(dates)))
+    log("Total: $" + str(sum(profit_loss)))
 
-#reset previous month     
-previous_month = current_month
+    # Set for loop to get toal change in "ProfitsLosses", maximum increase in profits and
+    # maximum decrease in profits.
+    for i in range(1, len(profit_loss)):
+        change_profit_loss.append(profit_loss[i] - profit_loss[i - 1])
+        average_change_profit_loss = round((sum(change_profit_loss) / len(change_profit_loss)), 2)
 
-#calculate average loss/profit 
-average_profit_loss = cumulative_increase_decrease / (monthcount - 1)
+        max_increase = max(change_profit_loss)
+        max_decrease = min(change_profit_loss)
 
-#change data types to be a little cleaner when I print
-monthcount = int(monthcount)
-total_profit_loss = int(total_profit_loss)
-average_profit_loss = int(average_profit_loss)
-greatest_increase = int(greatest_increase)
-greatest_decrease = int(greatest_decrease)
+        max_increase_date =  dates[change_profit_loss.index(max(change_profit_loss))]
+        max_decrease_date = dates[change_profit_loss.index(min(change_profit_loss))]
 
-#print list!!
+    # Print statements for average change, greatest increase and greatest decrease in "Profits/Losses".
+    log("Average Change: $" + str(average_change_profit_loss))
+    log("Greatest Increase in Profits: " + max_increase_date + " ($" + str(max_increase) + ")")
+    log("Greatest Decrease in Profits: " + max_decrease_date + " ($" + str(max_decrease) + ")")
